@@ -1,16 +1,6 @@
 package sudokuinterface;
 
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.Collections;
-//import java.util.Stack;
-//import java.io.PrintWriter;
-//import java.io.File;
-//import java.io.BufferedWriter;
-//import java.io.FileWriter;
-//import java.util.Collection;
 import java.util.*;
-//import java.io.*;
 
 public class SudokuBoard {
 	
@@ -18,25 +8,16 @@ public class SudokuBoard {
 	SudokuTranslate translate;
 	SudokuSaveInterface save = new SudokuSave();
 	private ArrayList<ArrayList<SudokuTile>> boardArray = new ArrayList<ArrayList<SudokuTile>>();
-	//private int undoNum;								
-	//private String undoCoord;
 	private boolean makeBoardDebug = false;				
 	private boolean inputDebug = false;					
 	private boolean firstCheckDebug = false;			
 	private boolean checkChainDebug = false;			
 	private boolean checkErrorDebug = false;			
 	private boolean endGameDebug = false;
-	//private ArrayList<String> zeroNine = new ArrayList<String>();
-	//private Stack<ArrayList<ArrayList<SudokuTile>>> arrStored;
-	//private Stack<ArrayList<ArrayList<SudokuTile>>> arrDiStored;
 	private Stack<String> prevTurns2 = new Stack<String>();
 	private Stack<String> redoTurns2 = new Stack<String>();
 	private Stack<ArrayList<String>> prevTurns = new Stack<ArrayList<String>>();
 	private Stack<ArrayList<String>> redoTurns = new Stack<ArrayList<String>>();
-	//private Stack<SudokuTile> diStored;
-	//private String storedInText;
-	//private PrintWriter writer;
-	
 	
 	public ArrayList<ArrayList<SudokuTile>> getBoardArray() {				
 		return boardArray;								
@@ -44,9 +25,6 @@ public class SudokuBoard {
 	
 	public SudokuBoard(String inputBoard) {				
 		translate = new SudokuTranslate();
-		/*for (int i = 0; i < 10; i++) {
-			zeroNine.add(Integer.toString(i));
-		}*/
 		int counter = 0;								
 		System.out.println(inputBoard.length());		
 		if (inputBoard.length() == 81) {				
@@ -98,19 +76,19 @@ public class SudokuBoard {
 				else {
 					boardString += " " + Integer.toString(tempArray[i][j]) + " ";
 				}
-				counter += 1;							// Adds one to the counter, so that walls are printed correctly
+				counter += 1;
 				
-				if (counter%3 == 0) {					// For every third time the for loop iterates:
-                    boardString += "|";						// Add a wall "baordString" | WHY NOT USE FOR LOOP "j+1" FOR THIS?
+				if (counter%3 == 0) {
+                    boardString += "|";
                 }
 			}
-		rowCounter += 1;								// Adds one to the rowCounter  for every iteration the the first for loop
-	    if (rowCounter % 3 == 0)						// For every third iteration of the first for loop:
-	    	boardString += line + spacer;				// Adds a new line and a spacer to "boardString"
-	    	boardString += line;						// Adds a new line to "boardString"
+		rowCounter += 1;
+	    if (rowCounter % 3 == 0)
+	    	boardString += line + spacer;
+	    	boardString += line;
 		}
-		boardString += "   " + "+ a  b  c + d  e  f + g  h  i +";		// Adds the bottom x-indices to "boardString"
-		return boardString;												// Returns "boardString", the string containing the whole printable board
+		boardString += "   " + "+ a  b  c + d  e  f + g  h  i +";
+		return boardString;
 	}
 	
 	public void takeInput(String coordinates, String number) {
@@ -520,35 +498,6 @@ public class SudokuBoard {
 		}
 		
 	}
-	/*private String storeBoard(ArrayList<ArrayList<SudokuTile>> theBoard) {
-		String textFile = "";
-		for (ArrayList<SudokuTile> subArray : theBoard) {
-			for (SudokuTile tile : subArray) {
-				String value1 = Integer.toString(tile.getValue());
-				String value2 = Integer.toString(translate.boolInt(tile.getValidity()));
-				String value3 = Integer.toString(translate.boolInt(tile.getType()));
-				
-				textFile += value1 + value2 + value3 + " ";
-			}
-		}
-		return textFile;
-	}*/
-	/*private ArrayList<ArrayList<SudokuTile>> redoBoard(String textInput) {
-		ArrayList<ArrayList<SudokuTile>> board = new ArrayList<ArrayList<SudokuTile>>();
-		ArrayList<String> tempText = new ArrayList<String>(Arrays.asList(textInput.split(" ")));
-		int count = 0;
-		for (int i = 0; i < 9; i++) {
-			ArrayList<SudokuTile> subBoard = new ArrayList<SudokuTile>();
-			for (int j = 0; j < 9; j++) {
-				
-				ArrayList<String> tempList = new ArrayList<String>(Arrays.asList(tempText.get(count).split("")));
-				subBoard.add(new SudokuTile(tempList));
-				count++;
-			}
-			board.add(subBoard);
-		}
-		return board;
-	}*/
 	public void undoMove() {
 		if (!prevTurns.empty()) {
 			ArrayList<String> turn = prevTurns.pop();
@@ -592,85 +541,7 @@ public class SudokuBoard {
 	public void printToFile(){
 		save.printToFile(boardArray);
 	}
-	/*public void printToFile() {
-		PrintWriter writer;
-		try {
-			String home = System.getProperty("user.home");
-			File file = new File(home,"SudokuSave.txt");
-			writer = new PrintWriter(file);
-			writer.print(storeBoard(boardArray));
-			writer.close();
-		}
-		catch (Exception e){
-			System.out.println(e);
-		}
-		finally {
-		}
-	}*/
 	public void loadFromFile(){
 		boardArray = new ArrayList<ArrayList<SudokuTile>>(save.loadFromFile());
 	}
-	/*public void loadFromFile(){
-		Scanner reader;
-		try {
-			String home = System.getProperty("user.home");
-			File file = new File(home,"SudokuSave.txt");
-			reader = new Scanner(file);
-			String line = "";
-			while (reader.hasNext()) {
-				line = reader.nextLine();
-			}
-			reader.close();
-			if (!line.equals("")) {
-				boardArray = new ArrayList<ArrayList<SudokuTile>>(redoBoard(line));
-			}
-		}
-		catch (Exception e){
-			System.out.println(e);
-		}
-		finally {
-		}
-	}*/
-	
-	/*private boolean verifySave(ArrayList<String> list) {
-		System.out.println(list.size());
-		if (list.size() == 81) {
-			System.out.println("PASS");
-			boolean nofail = false;
-			for (String string : list) {
-				ArrayList<String> innerList = new ArrayList<String>(Arrays.asList(string.split("")));
-				System.out.println(innerList.size() + " " + innerList);
-				if (innerList.size() == 3) {
-					System.out.print("1");
-					nofail = true;
-				}
-				else {
-					nofail = false;
-				}
-				if (zeroNine.contains(innerList.get(0))) {
-					System.out.print("2");
-					nofail = true;
-				}
-				else {
-					nofail = false;
-				}
-				if (zeroNine.subList(0,1).contains(innerList.get(1))) {
-					System.out.print("3");
-					nofail = true;
-				}
-				else {
-					nofail = false;
-				}
-				if (zeroNine.subList(0,1).contains(innerList.get(2))) {
-					System.out.print("4");
-					nofail = true;
-				}
-				else {
-					nofail = false;
-				}
-				return nofail;
-			}
-		}
-		return false;
-	}*/
 }
