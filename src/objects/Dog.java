@@ -18,6 +18,6 @@ public class Dog {
 	
 	
 	public String toString() {
-		return 
+		return "name: " + this.name + " owner: " + this.owner;
 	}
 }

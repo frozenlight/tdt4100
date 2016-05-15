@@ -1,4 +1,4 @@
-package Onliner;
+package student;
 
 public class Student {
 	public String name;

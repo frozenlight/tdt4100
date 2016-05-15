@@ -38,6 +38,10 @@ public class Person {
 		this.spouse = null;
 	}
 	
+	public void printAllDogs() {
+		dogs.forEach(System.out::println);
+	}
+	
 	@Override
 	public String toString() {
 		if (this.spouse != null) {

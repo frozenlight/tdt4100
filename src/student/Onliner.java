@@ -1,9 +1,12 @@
-package Onliner;
+package student;
 
 public class Onliner extends Student {
 	
-	public Onliner() {
-		
+	private String name;
+	
+	public Onliner(String name) {
+		this.name = name;
+		System.out.println(this.name);
 	}
 	
 	public static void main(String[] args) {

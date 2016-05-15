@@ -1,4 +1,4 @@
-package Onliner;
+package student;
 
 public interface Puster {
 	
